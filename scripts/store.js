@@ -37,7 +37,7 @@ const store = (function() {
     try {
       Item.validateName(newName);
       item.name = newName;
-      render();
+      shoppingList.render();
     }
     catch(error) {
       console.log(`Cannot change item: ${error.message}`);
@@ -46,9 +46,19 @@ const store = (function() {
 
   function findAndDelete(id) {
     const item = this.findById(id);
-    index = item.indexOf(item);
+    const index = items.indexOf(item);
     store.items.splice(index, 1);
   }
+
+  function toggleCheckedFilter(){
+    this.hideCheckedItems = !this.hideCheckedItems;
+  }
+
+  function setSearchTerm(search){
+    this.searchTerm = search;
+  }
+
+
 
   return {
     items,
@@ -58,6 +68,8 @@ const store = (function() {
     addItem,
     findAndToggleChecked,
     findAndUpdateName,
-    findAndDelete
+    findAndDelete,
+    toggleCheckedFilter,
+    setSearchTerm
   }
 }());
